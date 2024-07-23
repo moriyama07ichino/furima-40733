@@ -24,32 +24,35 @@ Things you may want to cover:
 * ...
 
 ## ユーザー情報テーブル（Users）
-|Column    |Type  |Options                  |
-|first_name|string|null: false              |
-|last_name |string|null: false              |
-|nickname  |string|null: false              |
-|email     |string|null: false, unique: true|
-|password  |string|null: false              |
+|Column         |Type   |Options                        |
+|nickname       |string |null: false                    |
+|email          |string |null: false, unique: true      |
+|password       |string |null: false                    |
+|first_name     |string |null: false                    |
+|last_name      |string |null: false                    |
+|first_name_kana|string |null: false                    |
+|last_name_kana |string |null: false                    |
+|birthday       |date   |null: false                    |
 
 ### Association
 - has_many :items
 - has_many :orders
 
 ## 商品情報テーブル（Items）
-|Column              |Type       |Options                       |
+|Column              |Type        |Options                       |
 |user                |references	|null: false, foreign_key: true|
 |name	               |string  	  |null: false                   |
 |description	       |text	      |null: false                   |
-|category_id         |integer	  |null: false                   |
-|condition	         |integer	  |null: false                   |
-|shipping_cost_id	   |integer	  |null: false                   |
-|prefecture_id       |integer	  |null: false                   |
-|days_to_ship_id 	   |integer	  |null: false                   |
-|price	             |integer	  |null: false                   |
+|category_id         |integer	    |null: false                   |
+|condition	         |integer	    |null: false                   |
+|shipping_cost_id	   |integer	    |null: false                   |
+|prefecture_id       |integer	    |null: false                   |
+|days_to_ship_id 	   |integer	    |null: false                   |
+|price	             |integer	    |null: false                   |
 
 ### Association
 - belongs_to :user
-- belongs_to :order
+- has_one :order
 
 ## 購入記録テーブル（Orders）
 |Column   |Type       |Options                       |
@@ -59,7 +62,7 @@ Things you may want to cover:
 ### Association
 - belongs_to :user
 - belongs_to :item
-- has_one :shippingAddress
+- has_one :shipping_address
 
 ## 発送先情報テーブル（ShippingAddresses）
 |Column          |Type        |Options                       |

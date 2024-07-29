@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     nickname { 'test' }
-    email { 'test@example.com' }
+    email { Faker::Internet.email } # ランダムなメールアドレスを生成する
     password { 'password123' } # 6文字以上の半角英数字
     password_confirmation { 'password123' } # passwordと一致
     last_name { '山田' }

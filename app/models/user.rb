@@ -19,5 +19,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   # パスワードが必須、6文字以上、半角英数字混合
-  validates :password, presence: true, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
+  validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 end

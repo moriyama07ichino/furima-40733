@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :nickname, presence: true
 
   # 名前(全角)が必須、全角（漢字・ひらがな・カタカナ）
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
+  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
+  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
 
   # 名前カナ(全角)が必須、全角（カタカナ）
   validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
@@ -19,5 +19,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   # パスワードが必須、6文字以上、半角英数字混合
-  validates :password, length: { minimum: 6 }, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 end

@@ -4,16 +4,14 @@ class Item < ApplicationRecord
 
   has_many :orders
 
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :image, presence: true
+  validates :name, :description, :image, presence: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
-    # ActiveHashの関連付け
-    extend ActiveHash::Associations::ActiveRecordExtensions
-    belongs_to_active_hash :shipping_cost, class_name: "ShippingCost"
-  
+  # ActiveHashの関連付け
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :shipping_cost, class_name: "ShippingCost"
 
   def sold?
-    self.orders.exists?
+    orders.exists?
   end
 end

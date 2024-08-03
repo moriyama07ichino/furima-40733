@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)  # フォームから送信されたデータで新しい商品を作成
     @item.user = current_user
     if @item.save
-      redirect_to @item, notice: "Item was successfully created."  # 保存が成功したら詳細ページにリダイレクト
+      redirect_to root_path  # トップページにリダイレクト
     else
       set_select_data
       render :new, status: :unprocessable_entity  # 保存が失敗したらnewテンプレートを再表示

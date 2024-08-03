@@ -19,7 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (priceInput) {
     priceInput.addEventListener("input", () => {
       console.log("イベント発火");
-      // ここで手数料や利益の計算ロジックを追加する
+      
+        // 入力された金額の値を取得
+        const inputValue = priceInput.value;
+        console.log("入力された金額: ", inputValue);
+
+        // 手数料と利益の計算
+        const fee = inputValue * 0.1; // 手数料を10%と仮定
+        const profit = inputValue - fee;
+
+        // 計算結果を表示
+        if (feeDisplay) {
+          feeDisplay.innerHTML = fee.toFixed(2); // 小数点以下2桁まで表示
+        }
+        if (profitDisplay) {
+          profitDisplay.innerHTML = profit.toFixed(2);
+        }
     });
   }
+
+
+
 });

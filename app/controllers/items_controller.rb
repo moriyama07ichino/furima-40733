@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]  # newとcreateアクションに適用
 
-  def index  
-    @items = Item.all #すべてのアイテムを取得
+  def index 
+    @items = [] #一時的な空の配列    # @items = Item.all #すべてのアイテムを取得
   end
 
   def new

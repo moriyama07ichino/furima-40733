@@ -4,7 +4,7 @@ class Item < ApplicationRecord
 
   # has_many :orders
 
-  validates :name, :description, :image, presence: true
+  validates :name, :description, :image, :user, presence: true
   validates :price, presence: true, numericality: {
               only_integer: true,
               greater_than_or_equal_to: 300,

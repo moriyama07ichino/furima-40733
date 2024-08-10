@@ -11,6 +11,12 @@ RSpec.describe Item, type: :model do
     end
 
     context '異常ケース' do
+      it 'userが紐づいていない場合、無効である' do
+        item.user = nil
+        item.valid?
+        expect(item.errors[:user]).to include("must exist")
+      end
+      
       it '画像がない場合、無効である' do
         item.image = nil
         item.valid?
@@ -82,6 +88,8 @@ RSpec.describe Item, type: :model do
         item.valid?
         expect(item.errors[:price]).to include("is not a number")
       end
+
+
 
     end
   end

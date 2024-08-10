@@ -49,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOMContentLoaded OK");
-
-  const price = () => {
+    const price = () => {
 
     // 要素の取得
     const priceInput = document.getElementById("item-price");

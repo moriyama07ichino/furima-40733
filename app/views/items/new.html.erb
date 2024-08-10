@@ -5,17 +5,8 @@
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
 
-    <%= form_with(model: @item, local: true) do |f| %>
-      <% if @item.errors.any? %>
-        <div class="error_messages">
-          <h2>フォームに<%= pluralize(@item.errors.count, "error") %>があります:</h2>
-          <ul>
-            <% @item.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+     <%= form_with(model: @item, local: true) do |f| %>
+      <%= render 'shared/error_messages', model: f.object %>
 
       <%# 商品画像 %>
       <div class="img-upload">
@@ -55,12 +46,12 @@
             カテゴリー
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"category-select"}) %>
+          <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>         
           <div class="weight-bold-text">
             商品の状態
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select(:condition_id, Condition.all, :id, :name, {}, {class:"condition-select"}) %>
+          <%= f.collection_select(:condition_id, Condition.all, :id, :name, {}, {class:"select-box", id:"item-sales-status"}) %>
         </div>
       </div>
       <%# /商品の詳細 %>
@@ -76,17 +67,17 @@
             配送料の負担
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select(:shipping_cost_id, ShippingCost.all, :id, :name, {}, {class:"shipping_cost-select"}) %>
+          <%= f.collection_select(:shipping_cost_id, ShippingCost.all, :id, :name, {}, {class:"select-box", id:"item-shipping-fee-status"}) %>
           <div class="weight-bold-text">
             発送元の地域
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"prefecture-select"}) %>
+          <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"item-prefecture"}) %>
           <div class="weight-bold-text">
             発送までの日数
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select(:days_to_ship_id, DaysToShip.all, :id, :name, {}, {class:"days_to_ship-select"}) %>
+          <%= f.collection_select(:days_to_ship_id, DaysToShip.all, :id, :name, {}, {class:"select-box", id:"item-scheduled-delivery"}) %>
         </div>
       </div>
       <%# /配送について %>

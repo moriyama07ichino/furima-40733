@@ -90,4 +90,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # メールのデフォルトURLオプションの設定
+  config.action_mailer.default_url_options = { host: 'furima-40733.onrender.com' }
+
+  # ActiveStorageのURLオプション設定を追加
+  config.active_storage.default_url_options = { host: 'furima-40733.onrender.com' }
+  
 end

@@ -19,5 +19,11 @@ module Furima40733
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # ActiveStorageの現在のURLオプション設定
+    config.after_initialize do
+      ActiveStorage::Current.url_options = Rails.application.routes.default_url_options
+    end
+    
   end
 end

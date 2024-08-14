@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]  # newとcreateアクションに適用
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]  # new、create、edit、updateアクションに適用
+  before_action :set_item, only: [:show, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc) #すべてのアイテムを新しい順に表示
@@ -22,8 +24,19 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
+
+  def edit
+  end
+
+  def update    
+    if @item.update(item_params)
+      redirect_to @item
+    else
+      render :edit, status: :unprocessable_entity  # 保存が失敗したらeditテンプレートを再表示
+    end
+  end
+
 
   private
 
@@ -47,6 +60,16 @@ class ItemsController < ApplicationController
     @shipping_costs = ShippingCost.all
     @prefectures = Prefecture.all
     @days_to_ship = DaysToShip.all
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def correct_user
+    unless @item.user == current_user
+      redirect_to root_path
+    end
   end
 
 end

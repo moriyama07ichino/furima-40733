@@ -19,9 +19,9 @@ class Item < ApplicationRecord
   belongs_to_active_hash :prefecture, class_name: "Prefecture"
   belongs_to_active_hash :days_to_ship, class_name: "DaysToShip"
 
-  # 以下のように各属性のバリデーションを追加
+  # 各属性のバリデーション
   validates :shipping_cost_id, :category_id, :condition_id, :prefecture_id, :days_to_ship_id,
-            numericality: { other_than: 0, message: "must be selected" }
+            numericality: { other_than: 1, message: "must be selected" }
 
   def sold?
     orders.exists?

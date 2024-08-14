@@ -66,7 +66,7 @@
   <div class='ad-contents'>
     <h2 class='ad-title'>
       会員数日本一位
-    </h2>
+    </h2>% link_to item_path(item) do %>
     <p class='ad-explain'>
       FURIMAは、フリマアプリで最も人気。
     </p>
@@ -130,28 +130,29 @@
     <% if @items.any? %>
       <% @items.each do |item| %>
         <li class='list'>
-          <%# <% link_to item_path(item) do %>  <!-- コメントアウト -->
-          <div class='item-img-content'>
-            <%= image_tag(item.image, class: "item-img") %>
-            <%# <% if item.sold? %>  <!-- 条件コメントアウト -->
-              <div class='sold-out'>
-                <span>Sold Out!!</span>
-              </div>
-            <%# <% end %>  <!-- 条件コメントアウト -->
-          </div>
-          <%# <% end %>  <!-- リンクの終了部分をコメントアウト -->
-          <div class='item-info'>
-            <h3 class='item-name'>
-              <%= item.name %>
-            </h3>
-            <div class='item-price'>
-              <span><%= item.price %>円<br><%= item.shipping_cost.name %></span>
-              <div class='star-btn'>
-                <%= image_tag "star.png", class:"star-icon" %>
-                <span class='star-count'>0</span>
+          <%= link_to item_path(item) do %>  
+            <div class='item-img-content'>
+              <%= image_tag(item.image, class: "item-img") %>
+              <% if item.sold? %>  
+                <div class='sold-out'>
+                  <span>Sold Out!!</span>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class='item-info'>
+              <h3 class='item-name'>
+                <%= item.name %>
+              </h3>
+              <div class='item-price'>
+                <span><%= item.price %>円<br><%= item.shipping_cost.name %></span>
+                <div class='star-btn'>
+                  <%= image_tag "star.png", class:"star-icon" %>
+                  <span class='star-count'>0</span>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </li>
       <% end %>
     <% else %>

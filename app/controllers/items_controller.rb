@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]  # new、create、edit、updateアクションに適用
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]  
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.order(created_at: :desc) #すべてのアイテムを新しい順に表示
@@ -34,6 +34,14 @@ class ItemsController < ApplicationController
       redirect_to @item
     else
       render :edit, status: :unprocessable_entity  # 保存が失敗したらeditテンプレートを再表示
+    end
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
     end
   end
 

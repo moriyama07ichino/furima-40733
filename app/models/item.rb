@@ -21,7 +21,7 @@ class Item < ApplicationRecord
 
   # 各属性のバリデーション
   validates :shipping_cost_id, :category_id, :condition_id, :prefecture_id, :days_to_ship_id,
-            numericality: { other_than: 1, message: "must be selected" }
+            numericality: { other_than: 0, message: "must be selected" }
 
   def sold?
     orders.exists?

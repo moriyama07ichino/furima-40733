@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @purchase_form = PurchaseForm.new
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY'] # 公開鍵を設定
   end
 
   def create
@@ -11,9 +12,9 @@ class OrdersController < ApplicationController
     # 保存処理
      if @purchase_form.valid?
         @purchase_form.save
-        redirect_to root_path
+        redirect_to root_path 
      else
-        render :index
+        render :index, status: :unprocessable_entity # エラーメッセージを表示するためにindexテンプレートをレンダリング
      end
   end
 

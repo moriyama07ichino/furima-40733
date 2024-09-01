@@ -1,7 +1,13 @@
 const pay = () => {
-  const publicKey = gon.public_key; // エラーが発生している部分
-  const payjp = Payjp(publicKey);
+
+  //ページが読み込まれた時に変数payに代入したアロー関数が実行できるようにする
+  console.log("カード情報トークン化のためのJavaScript");
+
+  // elementsインスタンスを作成
+  const publicKey = gon.public_key
+  const payjp = Payjp(publicKey) // PAY.JPテスト公開鍵
   const elements = payjp.elements();
+
   const numberElement = elements.create('cardNumber');
   const expiryElement = elements.create('cardExpiry');
   const cvcElement = elements.create('cardCvc');
@@ -10,34 +16,25 @@ const pay = () => {
   expiryElement.mount('#expiry-form');
   cvcElement.mount('#cvc-form');
 
-  const submitButton = document.getElementById('button');
-  submitButton.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    console.log("購入ボタンがクリックされました"); // イベントが発火していることを確認
-
-    // カード情報のトークン生成
-    payjp.createToken(numberElement).then((response) => {
+  //フォーム送信時にイベントが発火するようにする
+  const form = document.getElementById('charge-form')
+  form.addEventListener("submit", (e) => {
+    payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-        console.log("トークン生成エラー: ", response.error); // エラーメッセージをログに表示
-        alert(response.error.message);
       } else {
-        // トークンの取得
         const token = response.id;
-        console.log("トークンが生成されました: ", token); // トークンが生成されたことを確認
-        // トークンをフォームに追加
-        const form = document.getElementById('charge-form');
-        const tokenInput = document.createElement('input');
-        tokenInput.setAttribute('type', 'hidden');
-        tokenInput.setAttribute('name', 'token');
-        tokenInput.setAttribute('value', token);
-        form.appendChild(tokenInput);
-
-        // フォームの送信
-        form.submit();
+        const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='token' type="hidden">`;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
+      numberElement.clear();
+      expiryElement.clear();
+      cvcElement.clear();
+      document.getElementById("charge-form").submit();
     });
+    e.preventDefault();
   });
 };
 
 window.addEventListener("turbo:load", pay);
+window.addEventListener("turbo:render", pay);

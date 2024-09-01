@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  has_many :orders
+  has_one :order
 
   validates :name, :description, :image, :user, presence: true
   validates :price, presence: true, numericality: {
@@ -23,7 +23,8 @@ class Item < ApplicationRecord
   validates :shipping_cost_id, :category_id, :condition_id, :prefecture_id, :days_to_ship_id,
             numericality: { other_than: 0, message: "must be selected" }
 
+  # 商品が売れているかどうかを確認するメソッド
   def sold?
-    orders.exists?
+    order.present?
   end
 end

@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseForm, type: :model do
+  before do
+    @purchase_form = FactoryBot.build(:purchase_form)
+  end
+
   describe '商品購入' do
     let(:purchase_form) { build(:purchase_form) }
 
@@ -22,6 +26,10 @@ RSpec.describe PurchaseForm, type: :model do
         purchase_form.valid?
         expect(purchase_form.errors.full_messages).to include("郵便番号が入力されていません")
       end
+
     end
+
   end
+
+
 end

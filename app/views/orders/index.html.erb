@@ -1,6 +1,6 @@
 <%= render "shared/second-header"%>
-
 <%= include_gon %>
+
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -32,6 +32,8 @@
       </p>
     </div>
     <%# /支払額の表示 %>
+
+
 
     <%# エラーメッセージ表示のコードを追加 %>
       <%= form_with model: @purchase_form, url: item_orders_path(@item), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>

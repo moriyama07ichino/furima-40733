@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :shipping_address do
-    order { nil }
+    association :order
     postal_code { "MyString" }
     prefecture_id { 1 }
     city { "MyString" }

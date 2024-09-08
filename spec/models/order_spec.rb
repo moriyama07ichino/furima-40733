@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item)
-    @order = FactoryBot.build(:order, user_id: @user.id, item_id: @item.id)
+    @user = FactoryBot.create(:user)  # ここでuserを事前に作成
+    @item = FactoryBot.create(:item, user: @user)  # そのuserを関連付けたitemを作成
+    @order = FactoryBot.build(:order, user: @user, item: @item)
   end
 
   describe 'オーダーの保存' do
@@ -15,13 +15,17 @@ RSpec.describe Order, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it 'tokenが空では保存できない' do
-        @order.token = nil
+      it 'user_idが空では保存できない' do
+        @order.user = nil
         @order.valid?
-        expect(@order.errors.full_messages).to include("Token can't be blank")
+        expect(@order.errors.full_messages).to include("User must exist")
       end
 
-      # 他のバリデーションに関するテストも追加できます
+      it 'item_idが空では保存できない' do
+        @order.item = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item must exist")
+      end
     end
   end
 end

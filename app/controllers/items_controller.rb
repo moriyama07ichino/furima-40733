@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
     @items = Item.order(created_at: :desc) #すべてのアイテムを新しい順に表示
   end
 
+  
   def new
     @item = Item.new
     set_select_data  # インスタンス変数を設定

@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # メールアドレスの重複を防ぐバリデーション
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+
   # ニックネームが必須
   validates :nickname, presence: true
 

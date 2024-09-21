@@ -1,14 +1,29 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]  # ログインが必要なアクションに適用
+  
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item = Item.find(params[:item_id])
+
+    # 自分が出品した商品ならトップページにリダイレクト
+    if @item.user_id == current_user.id
+      redirect_to root_path
+      return
+    end
+
     @purchase_form = PurchaseForm.new
   end
 
   def create
     @item = Item.find(params[:item_id])
+
+    # 売却済みかつ現在のユーザーが出品者ではない場合、トップページにリダイレクト
+     if @item.user_id != current_user.id && @item.sold?
+      redirect_to root_path and return
+     end
+
     @purchase_form = PurchaseForm.new(order_params)
- 
+
     # 保存処理
      if @purchase_form.valid?
         pay_item  # PAY.JPでの決済処理を呼び出す

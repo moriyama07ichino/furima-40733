@@ -10,8 +10,9 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.integer :prefecture_id, null: false
       t.integer :days_to_ship_id, null: false
       t.integer :price, null: false
-
       t.timestamps
     end
+    #statusカラムがNULLになることを防ぐ 
+    add_column :items, :status, :string, null: false, default: 'available'
   end
 end

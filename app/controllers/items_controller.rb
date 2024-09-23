@@ -18,6 +18,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)  # フォームから送信されたデータで新しい商品を作成
     @item.user = current_user
+
     if @item.save
       redirect_to root_path  # トップページにリダイレクト
     else
@@ -79,6 +80,13 @@ class ItemsController < ApplicationController
 
   def correct_user
     unless @item.user == current_user
+      redirect_to root_path
+    end
+  end
+
+  # 売却済み商品の情報編集ページへのアクセスを防ぐメソッド
+  def check_item_sold_status
+    if @item.sold?
       redirect_to root_path
     end
   end

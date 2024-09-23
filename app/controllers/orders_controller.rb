@@ -6,9 +6,8 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
 
     # 自分が出品した商品ならトップページにリダイレクト
-    if @item.user_id == current_user.id
-      redirect_to root_path
-      return
+    if @item.user_id == current_user.id || @item.sold?
+      redirect_to root_path and return
     end
 
     @purchase_form = PurchaseForm.new

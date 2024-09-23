@@ -8,7 +8,8 @@ FactoryBot.define do
     shipping_cost_id { 1 }
     prefecture_id { 1 }
     days_to_ship_id { 1 }
-    association :user  # ここで関連付けを行う
+    association :user  
+    status { 'available' }
 
     after(:build) do |item|
       item.image.attach(io: File.open(Rails.root.join('spec/support/assets/test_image.png')), filename: 'test_image.png', content_type: 'image/png')

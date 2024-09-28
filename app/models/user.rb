@@ -24,5 +24,8 @@ class User < ApplicationRecord
   # パスワードが必須、6文字以上、半角英数字混合
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 
+  # アソシエーション
   has_one :card, dependent: :destroy
+  has_many :items, dependent: :destroy  # ユーザーが出品したアイテムの関連付け
+  has_many :orders, dependent: :destroy # ユーザーが購入したオーダーの関連付け
 end

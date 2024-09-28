@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]  # ログインが必要なアクションに適用
-  
+  before_action :set_item, only: [:index, :create]  # @itemを設定するアクション
+
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
 
     # 自分が出品した商品ならトップページにリダイレクト
     if @item.user_id == current_user.id || @item.sold?
@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
 
     # 売却済みかつ現在のユーザーが出品者ではない場合、トップページにリダイレクト
      if @item.user_id != current_user.id && @item.sold?
@@ -35,6 +34,11 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  # @itemを設定するメソッド
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   # ストロングパラメーターを設定
   def order_params

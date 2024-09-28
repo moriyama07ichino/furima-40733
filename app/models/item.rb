@@ -25,6 +25,6 @@ class Item < ApplicationRecord
 
   # 商品が売れているかどうかを確認するメソッド
   def sold?
-    order.present?
+    self.order.present?
   end
 end

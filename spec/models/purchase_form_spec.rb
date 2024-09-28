@@ -2,24 +2,20 @@ require 'rails_helper'
 
 RSpec.describe PurchaseForm, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item)
-    @purchase_form = PurchaseForm.new(
-      token: 'tok_abcdefghijk00000000000000000',
-      user_id: @user.id,
-      item_id: @item.id,
-      postal_code: '123-4567',
-      prefecture_id: 2,
-      city: '東京都',
-      address: '青山1-1-1',
-      building: 'ビル101',
-      phone_number: '09012345678'
-    )
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id)
+
   end
 
   describe '購入情報の保存' do
     context '内容に問題がない場合' do
       it '全ての値が正しく入力されていれば保存できる' do
+        expect(@purchase_form).to be_valid
+      end
+
+      it '建物名が空でも保存できる' do
+        @purchase_form.building_name = ''
         expect(@purchase_form).to be_valid
       end
     end
@@ -38,9 +34,9 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '都道府県が空では保存できない' do
-        @purchase_form.prefecture_id = nil
+        @purchase_form.prefecture_id = 0
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@purchase_form.errors.full_messages).to include("Prefecture must be selected")
       end
 
       it '市区町村が空では保存できない' do

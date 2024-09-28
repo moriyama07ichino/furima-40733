@@ -1,8 +1,5 @@
 const pay = () => {
 
-  //ページが読み込まれた時に変数payに代入したアロー関数が実行できるようにする
-  console.log("カード情報トークン化のためのJavaScript");
-
   // elementsインスタンスを作成
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey) // PAY.JPテスト公開鍵

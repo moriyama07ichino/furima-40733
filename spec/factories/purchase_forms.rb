@@ -7,7 +7,5 @@ FactoryBot.define do
     address { "1-1" }
     building_name { "テストビル" }
     phone_number { "09012345678" }
-    user_id { FactoryBot.create(:user).id }
-    item_id { FactoryBot.create(:item).id }
   end
 end

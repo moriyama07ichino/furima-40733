@@ -37,32 +37,33 @@ RSpec.describe Item, type: :model do
         expect(@item.errors[:description]).to include("can't be blank")
       end
 
-      it 'カテゴリーIDが0の場合、無効である' do
-        @item.category_id = 0
+      # バリデーションのテストを修正
+      it 'カテゴリーIDが1の場合、無効である' do
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors[:category_id]).to include("must be selected")
       end
 
-      it '商品の状態IDが0の場合、無効である' do
-        @item.condition_id = 0
+      it '商品の状態IDが1の場合、無効である' do
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors[:condition_id]).to include("must be selected")
       end
 
-      it '配送料の負担IDが0の場合、無効である' do
-        @item.shipping_cost_id = 0
+      it '配送料の負担IDが1の場合、無効である' do
+        @item.shipping_cost_id = 1
         @item.valid?
         expect(@item.errors[:shipping_cost_id]).to include("must be selected")
       end
 
-      it '発送元の地域IDが0の場合、無効である' do
-        @item.prefecture_id = 0
+      it '発送元の地域IDが1の場合、無効である' do
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors[:prefecture_id]).to include("must be selected")
       end
 
-      it '発送までの日数IDが0の場合、無効である' do
-        @item.days_to_ship_id = 0
+      it '発送までの日数IDが1の場合、無効である' do
+        @item.days_to_ship_id = 1
         @item.valid?
         expect(@item.errors[:days_to_ship_id]).to include("must be selected")
       end

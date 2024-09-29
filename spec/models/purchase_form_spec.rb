@@ -4,8 +4,7 @@ RSpec.describe PurchaseForm, type: :model do
   before do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
-    @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id)
-
+    @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id, prefecture_id: 2)  # prefecture_idを2に修正
   end
 
   describe '購入情報の保存' do
@@ -34,7 +33,7 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '都道府県が空では保存できない' do
-        @purchase_form.prefecture_id = 0
+        @purchase_form.prefecture_id = 1
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include("Prefecture must be selected")
       end

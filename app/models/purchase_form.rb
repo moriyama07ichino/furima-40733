@@ -5,7 +5,7 @@ class PurchaseForm
   validates :token, :user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :phone_number, presence: true
   validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Include hyphen(-)' }
   validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Input only number' }
-  validates :prefecture_id, numericality: { other_than: 0, message: "must be selected" }
+  validates :prefecture_id, numericality: { other_than: 1, message: "must be selected" }
   
   def save
     ActiveRecord::Base.transaction do

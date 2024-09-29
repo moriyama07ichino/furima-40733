@@ -84,12 +84,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def check_item_sold_status
-    if @item.sold?
-      redirect_to root_path
-    end
-  end
-
   # 売却済み商品の情報編集ページへのアクセスを防ぐメソッド
   def check_item_sold_status
     if @item.sold?

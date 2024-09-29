@@ -3,6 +3,5 @@ Rails.application.routes.draw do
   root 'items#index'
   resources :items, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :orders, only: [:index, :create]
-    resources :cards, only: [:index, :create] 
   end
 end

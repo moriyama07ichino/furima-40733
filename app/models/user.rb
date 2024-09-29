@@ -4,8 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # メールアドレスの重複を防ぐバリデーション
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   # ニックネームが必須
   validates :nickname, presence: true
@@ -25,7 +23,6 @@ class User < ApplicationRecord
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 
   # アソシエーション
-  has_one :card, dependent: :destroy
   has_many :items, dependent: :destroy  # ユーザーが出品したアイテムの関連付け
   has_many :orders, dependent: :destroy # ユーザーが購入したオーダーの関連付け
 end

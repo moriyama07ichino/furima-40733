@@ -76,9 +76,6 @@ group :test do
   gem "webdrivers"
 end
 
-group :development do
-  gem 'rubocop', require: false
-end
 
 group :production do
   gem 'pg'
@@ -92,4 +89,5 @@ gem 'image_processing', '~> 1.2'
 
 gem 'active_hash'
 
-gem 'pry-rails'
+gem 'payjp'
+gem 'gon'

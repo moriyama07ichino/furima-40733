@@ -2,11 +2,14 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]  
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :check_item_sold_status, only: [:edit, :update, :destroy]
+
 
   def index
     @items = Item.order(created_at: :desc) #すべてのアイテムを新しい順に表示
   end
 
+  
   def new
     @item = Item.new
     set_select_data  # インスタンス変数を設定
@@ -15,6 +18,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)  # フォームから送信されたデータで新しい商品を作成
     @item.user = current_user
+
     if @item.save
       redirect_to root_path  # トップページにリダイレクト
     else
@@ -76,6 +80,13 @@ class ItemsController < ApplicationController
 
   def correct_user
     unless @item.user == current_user
+      redirect_to root_path
+    end
+  end
+
+  # 売却済み商品の情報編集ページへのアクセスを防ぐメソッド
+  def check_item_sold_status
+    if @item.sold?
       redirect_to root_path
     end
   end

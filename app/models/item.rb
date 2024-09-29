@@ -1,12 +1,11 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-
-  has_many :orders
+  has_one :order
 
   validates :name, :description, :image, :user, presence: true
   validates :price, presence: true, numericality: {
-              only_integer: true,
+              only_integer: true,              
               greater_than_or_equal_to: 300,
               less_than_or_equal_to: 9_999_999
             }
@@ -23,7 +22,8 @@ class Item < ApplicationRecord
   validates :shipping_cost_id, :category_id, :condition_id, :prefecture_id, :days_to_ship_id,
             numericality: { other_than: 1, message: "must be selected" }
 
+  # 商品が売れているかどうかを確認するメソッド
   def sold?
-    orders.exists?
+    self.order.present?
   end
 end
